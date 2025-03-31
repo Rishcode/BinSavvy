@@ -19,14 +19,14 @@ import type { DetectionResult, MediaType, ModelInfo } from "@/types/detection"
 const AVAILABLE_MODELS: ModelInfo[] = [
   {
     id: "yolo",
-    name: "Waste Detection (YOLO)",
+    name: "Waste Segmentation",
     description: "Detects and classifies waste in images",
     type: "image",
     icon: "🗑️",
   },
   {
     id: "best2",
-    name: "Drone Analysis (best2.pt)",
+    name: "Drone Analysis",
     description: "Analyzes drone footage for objects and activities",
     type: "video",
     icon: "🚁",
@@ -192,7 +192,7 @@ export default function WasteDetectionDashboard() {
   return (
     <div className="flex flex-col gap-6">
       <div className="bg-gradient-to-r from-eco-green to-eco-blue p-6 rounded-xl text-white">
-        <h1 className="text-3xl font-bold">Waste & Drone Analysis Dashboard</h1>
+        <h1 className="text-3xl font-bold">BinSavvy - Waste Detection App</h1>
         <p className="opacity-90 mt-2">
           Upload images or videos for detection and classification using our advanced AI models
         </p>

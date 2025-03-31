@@ -19,6 +19,12 @@ export default function DetectionResults({ results, media, mediaType, isProcessi
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentFrame, setCurrentFrame] = useState(0)
   const [totalFrames, setTotalFrames] = useState(0)
+  const [confidenceLevel, setConfidenceLevel] = useState(0.25) // Default confidence level
+
+  // Filter detections based on confidence level
+  const filteredDetections = results?.detections.filter(
+    (detection) => detection.confidence >= confidenceLevel
+  )
 
   // For images
   useEffect(() => {
@@ -38,8 +44,8 @@ export default function DetectionResults({ results, media, mediaType, isProcessi
         // Draw the original image
         ctx.drawImage(img, 0, 0)
 
-        // Draw bounding boxes
-        results.detections.forEach((detection) => {
+        // Draw bounding boxes for filtered detections
+        filteredDetections?.forEach((detection) => {
           const { box, class_name, confidence } = detection
           const [x, y, width, height] = box
 
@@ -63,7 +69,7 @@ export default function DetectionResults({ results, media, mediaType, isProcessi
       }
       img.src = media
     }
-  }, [results, media, mediaType])
+  }, [filteredDetections, media, mediaType])
 
   // For videos
   useEffect(() => {
@@ -164,6 +170,20 @@ export default function DetectionResults({ results, media, mediaType, isProcessi
 
   return (
     <div className="flex flex-col space-y-4">
+      {/* Confidence Level Slider */}
+      <div className="flex items-center space-x-4">
+        <p className="text-sm font-medium">Confidence Level:</p>
+        <Slider
+          value={[confidenceLevel]}
+          min={0}
+          max={1}
+          step={0.01}
+          onValueChange={(value) => setConfidenceLevel(value[0])}
+          className="flex-1"
+        />
+        <p className="text-sm font-bold">{(confidenceLevel * 100).toFixed(0)}%</p>
+      </div>
+
       <div className="relative border rounded-md overflow-hidden">
         {mediaType === "image" ? (
           <canvas ref={canvasRef} className="max-w-full h-auto" />
@@ -216,7 +236,7 @@ export default function DetectionResults({ results, media, mediaType, isProcessi
           <div className="grid grid-cols-2 gap-2">
             <div className="bg-gradient-to-r from-eco-green/10 to-eco-blue/10 p-4 rounded-md">
               <p className="text-sm font-medium">Objects Detected</p>
-              <p className="text-2xl font-bold eco-gradient-text">{results.detections.length}</p>
+              <p className="text-2xl font-bold eco-gradient-text">{filteredDetections?.length || 0}</p>
             </div>
             <div className="bg-gradient-to-r from-eco-purple/10 to-eco-pink/10 p-4 rounded-md">
               <p className="text-sm font-medium">Processing Time</p>

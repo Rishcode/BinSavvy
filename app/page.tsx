@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import WasteDetectionDashboard from "@/components/waste-detection-dashboard"
 
 export const metadata: Metadata = {
-  title: "Waste Detection Dashboard",
+  title: "BinSavvy - Waste Detection",
   description: "Upload waste images for detection using YOLO model",
 }
 

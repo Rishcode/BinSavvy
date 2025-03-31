@@ -1,20 +1,20 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useRef } from "react"
 import { Upload, ImageIcon, Video, FileIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import type { MediaType } from "@/types/detection"
 
 interface MediaUploaderProps {
   onMediaSelected: (mediaDataUrl: string, type: MediaType, file: File) => void
   currentMedia: string | null
-  mediaType: MediaType
   acceptedTypes: string
 }
 
-export default function MediaUploader({ onMediaSelected, currentMedia, mediaType, acceptedTypes }: MediaUploaderProps) {
+export default function MediaUploader({ onMediaSelected, currentMedia, acceptedTypes }: MediaUploaderProps) {
+  const [mediaType, setMediaType] = useState<MediaType>("image") // Default to "image"
   const [isDragging, setIsDragging] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -77,6 +77,21 @@ export default function MediaUploader({ onMediaSelected, currentMedia, mediaType
 
   return (
     <div className="space-y-4">
+      {/* Media Type Selector */}
+      <div className="flex items-center space-x-4">
+        <p className="text-sm font-medium">Select Media Type:</p>
+        <Select value={mediaType} onValueChange={(value) => setMediaType(value as MediaType)}>
+          <SelectTrigger className="w-[150px]">
+            <SelectValue placeholder="Select media type" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="image">Image</SelectItem>
+            <SelectItem value="video">Video</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      {/* Drag-and-Drop or Click-to-Upload Area */}
       <div
         className={`border-2 border-dashed rounded-lg p-6 flex flex-col items-center justify-center min-h-[200px] cursor-pointer transition-colors ${
           isDragging ? "border-primary bg-primary/5" : "border-muted-foreground/25 hover:border-primary/50"
@@ -118,7 +133,14 @@ export default function MediaUploader({ onMediaSelected, currentMedia, mediaType
           </>
         )}
       </div>
-      <input type="file" ref={fileInputRef} onChange={handleFileChange} accept={acceptedTypes} className="hidden" />
+
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+        accept={mediaType === "image" ? "image/*" : "video/*"}
+        className="hidden"
+      />
     </div>
   )
 }
