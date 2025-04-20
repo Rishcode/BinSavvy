@@ -171,19 +171,16 @@ BinSavvy/
 ├── Jenkinsfile            # Jenkins pipeline
 └── README.md              # Project documentation
 ```
-🤝 Contributing
+***🤝 Contributing***
 Contributions are welcome! To contribute:
 
-Fork the repository.
-Create a branch: git checkout -b feature-branch.
-Commit changes: git commit -m 'Add feature'.
-Push: git push origin feature-branch.
-Open a pull request.
+***Fork*** the repository.
+****Create a branch:*** git checkout -b feature-branch.
+****Commit changes:*** git commit -m 'Add feature'.
+***Push:*** git push origin feature-branch.
+***Open*** a pull request.
 
-See CONTRIBUTING.md for details.
-📜 License
-This project is licensed under the MIT License.
-📬 Contact
+***📬 Contact***
 Questions or feedback? Open an issue on the GitHub repository or contact the maintainers.
 
 ⭐ Star this repo if BinSavvy helps you!💬 Join the discussion on GitHub Issues.```
