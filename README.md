@@ -175,10 +175,10 @@ BinSavvy/
 Contributions are welcome! To contribute:
 
 ***Fork*** the repository.
-****Create a branch:*** git checkout -b feature-branch.
-****Commit changes:*** git commit -m 'Add feature'.
-***Push:*** git push origin feature-branch.
-***Open*** a pull request.
+Create a branch: git checkout -b feature-branch.
+Commit changes: git commit -m 'Add feature'.
+Push: git push origin feature-branch.
+Open a pull request.
 
 ***📬 Contact***
 Questions or feedback? Open an issue on the GitHub repository or contact the maintainers.
